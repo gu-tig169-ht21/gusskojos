@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -31,24 +29,33 @@ class MainView extends StatelessWidget {
         title: Text(appBarTitle),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.menu_rounded),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => FilterView()));
-            },
-          ),
+          PopupMenuButton(
+              itemBuilder: (context) => [
+                    PopupMenuItem(child: Text('Visa alla')),
+                    PopupMenuItem(child: Text('Gjorda')),
+                    PopupMenuItem(child: Text('Att göra'))
+                  ])
         ],
       ),
       body: Container(
           padding: EdgeInsets.all(5),
-          margin: EdgeInsets.only(top: 2),
+          margin: const EdgeInsets.only(top: 2),
           child: _list()),
-      bottomNavigationBar: Container(
-        margin: EdgeInsets.only(top: 10, left: 300, bottom: 10),
-        child: FloatingActionButton(
-            child: Icon(Icons.add),
-            onPressed: () => print('Add button was pressed')),
+      bottomNavigationBar: Stack(
+        children: [
+          Container(
+            height: 70,
+          ),
+          Positioned(
+              right: 30,
+              bottom: 10,
+              child: FloatingActionButton(
+                  child: Icon(Icons.add),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => AddView()));
+                  })),
+        ],
       ),
     );
   }
@@ -85,8 +92,8 @@ Widget _item({required text}) {
   );
 }
 
-class FilterView extends StatelessWidget {
-  const FilterView({Key? key}) : super(key: key);
+class AddView extends StatelessWidget {
+  const AddView({Key? key}) : super(key: key);
 
   final String appBarTitle = 'TIG169 TODO';
   @override
