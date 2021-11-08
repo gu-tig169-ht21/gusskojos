@@ -9,9 +9,40 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TIG 169 ToDo App',
+      title: 'TIG169 ToDo App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.orange,
+      ),
+      home: MainView(),
+    );
+  }
+}
+
+class MainView extends StatelessWidget {
+  const MainView({Key? key}) : super(key: key);
+
+  final String appBarTitle = 'TIG169 TODO';
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(appBarTitle),
+        centerTitle: true,
+      ),
+    );
+  }
+}
+
+class FilterView extends StatelessWidget {
+  const FilterView({Key? key}) : super(key: key);
+
+  final String appBarTitle = 'TIG169 TODO';
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(appBarTitle),
+        centerTitle: true,
       ),
     );
   }
