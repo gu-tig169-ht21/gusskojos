@@ -21,8 +21,6 @@ class MyApp extends StatelessWidget {
 class MainView extends StatelessWidget {
   MainView({Key? key}) : super(key: key);
 
-  var list = ['Städa', 'Plugga', 'Chilla', 'Handla mat'];
-
   final String appBarTitle = 'TIG169 TODO';
   @override
   Widget build(BuildContext context) {
@@ -40,11 +38,34 @@ class MainView extends StatelessWidget {
           ),
         ],
       ),
+      body: _list(),
+      floatingActionButton: Container(
+        child: FloatingActionButton(
+            child: Icon(Icons.add),
+            onPressed: () => print('Add button was pressed')),
+      ),
     );
   }
 }
 
-Widget _item(text) {
+Widget _list() {
+  //Static Todo list for UI purpose
+  var list = [
+    'Städa',
+    'Plugga',
+    'Chilla',
+    'Handla mat',
+    'Flutter YT',
+    'Skriva lite kod'
+  ];
+
+  return ListView.builder(
+    itemBuilder: (context, index) => _item(text: list[index]),
+    itemCount: list.length,
+  );
+}
+
+Widget _item({required text}) {
   return ListTile(
     leading: const Icon(Icons.check_box_outline_blank_rounded),
     title: Text(text),
