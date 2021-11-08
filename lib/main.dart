@@ -32,7 +32,7 @@ class MainView extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.menu_rounded),
+            icon: const Icon(Icons.menu_rounded),
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => FilterView()));
@@ -42,6 +42,14 @@ class MainView extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _item(text) {
+  return ListTile(
+    leading: const Icon(Icons.check_box_outline_blank_rounded),
+    title: Text(text),
+    trailing: const Icon(Icons.close),
+  );
 }
 
 class FilterView extends StatelessWidget {
