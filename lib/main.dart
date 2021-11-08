@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -19,7 +19,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MainView extends StatelessWidget {
-  const MainView({Key? key}) : super(key: key);
+  MainView({Key? key}) : super(key: key);
+
+  var list = ['Städa', 'Plugga', 'Chilla', 'Handla mat'];
 
   final String appBarTitle = 'TIG169 TODO';
   @override
@@ -28,6 +30,15 @@ class MainView extends StatelessWidget {
       appBar: AppBar(
         title: Text(appBarTitle),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.menu_rounded),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => FilterView()));
+            },
+          ),
+        ],
       ),
     );
   }
