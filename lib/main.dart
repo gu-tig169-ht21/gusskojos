@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -38,8 +40,12 @@ class MainView extends StatelessWidget {
           ),
         ],
       ),
-      body: _list(),
-      floatingActionButton: Container(
+      body: Container(
+          padding: EdgeInsets.all(5),
+          margin: EdgeInsets.only(top: 2),
+          child: _list()),
+      bottomNavigationBar: Container(
+        margin: EdgeInsets.only(top: 10, left: 300, bottom: 10),
         child: FloatingActionButton(
             child: Icon(Icons.add),
             onPressed: () => print('Add button was pressed')),
@@ -51,6 +57,12 @@ class MainView extends StatelessWidget {
 Widget _list() {
   //Static Todo list for UI purpose
   var list = [
+    'Städa',
+    'Plugga',
+    'Chilla',
+    'Handla mat',
+    'Flutter YT',
+    'Skriva lite kod',
     'Städa',
     'Plugga',
     'Chilla',
