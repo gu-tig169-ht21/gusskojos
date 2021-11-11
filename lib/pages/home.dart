@@ -23,6 +23,8 @@ class _HomeState extends State<Home> {
     'Diska'
   ];
 
+  List<String> todoDeleteTemp = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,11 +33,16 @@ class _HomeState extends State<Home> {
         title: const Text('Todo List'),
         centerTitle: true,
         elevation: 0,
-        actions: const [
-          // ignore: todo
-          /* TODO: implementeras senare
-            PopupMenuButton()
-          */
+        actions: [
+          PopupMenuButton(
+              itemBuilder: (context) => [
+                    PopupMenuItem(
+                      child: Text('Visa alla'),
+                      onTap: () {},
+                    ),
+                    PopupMenuItem(child: Text('Gjorda'), onTap: () {}),
+                    PopupMenuItem(child: Text('Att göra'), onTap: () {})
+                  ]),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -72,7 +79,27 @@ class _HomeState extends State<Home> {
             value: false,
             onChanged: (value) {},
           ),
-          trailing: const Icon(Icons.delete),
+          trailing: ElevatedButton(
+            onPressed: () {
+              final snackBar = SnackBar(
+                content: Text('Vill du tabort "${todo[index]}"?'),
+                action: SnackBarAction(
+                  label: 'Bekräfta',
+                  onPressed: () {
+                    setState(() {
+                      todo.removeAt(index);
+                    });
+                    // Some code to undo the change.
+                  },
+                ),
+              );
+
+              // Find the ScaffoldMessenger in the widget tree
+              // and use it to show a SnackBar.
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            },
+            child: const Icon(Icons.delete),
+          ),
           title: Text(todo[index],
               style: GoogleFonts.handlee(
                   textStyle: const TextStyle(fontSize: 20))),
