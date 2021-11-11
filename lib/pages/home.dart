@@ -31,11 +31,16 @@ class _HomeState extends State<Home> {
         title: const Text('Todo List'),
         centerTitle: true,
         elevation: 0,
-        actions: const [
-          // ignore: todo
-          /* TODO: implementeras senare
-            PopupMenuButton()
-          */
+        actions: [
+          PopupMenuButton(
+              itemBuilder: (context) => [
+                    PopupMenuItem(
+                      child: Text('Visa alla'),
+                      onTap: () {},
+                    ),
+                    PopupMenuItem(child: Text('Gjorda'), onTap: () {}),
+                    PopupMenuItem(child: Text('Att göra'), onTap: () {})
+                  ]),
         ],
       ),
       floatingActionButton: FloatingActionButton(
