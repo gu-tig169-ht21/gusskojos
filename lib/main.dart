@@ -4,7 +4,10 @@ import 'package:todo_app/pages/add_todo.dart';
 
 //Main function to run App. Created for future routing
 void main() => runApp(MaterialApp(
-      title: 'TIG169 ToDo App',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Home(),
+        '/add': (context) => AddTodo(),
+      },
       theme: ThemeData(primarySwatch: Colors.orange),
-      home: const Home(),
     ));
