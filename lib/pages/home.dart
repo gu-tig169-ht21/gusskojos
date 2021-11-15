@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/models/todoitem.dart';
 import 'package:todo_app/providers/todolist.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/todolist_builder.dart';
@@ -17,22 +16,11 @@ class Home extends StatelessWidget {
         elevation: 0,
         actions: [_popUpFilterButton(context)],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          dynamic item = await Navigator.pushNamed(context, '/add');
-          if (item != null) {
-            Provider.of<TodoListProvider>(context, listen: false).addItem(item);
-          }
-        },
-        child: const Icon(Icons.add),
-      ),
       body: Consumer<TodoListProvider>(builder: (context, state, child) {
-        return Container(
-          margin: const EdgeInsets.only(bottom: 80),
-          child: TodoListBuilder(
-              list: state.filterList(state.todoList, state.filterBy)),
-        );
+        return TodoListBuilder(
+            list: state.filterList(state.todoList, state.filterBy));
       }),
+      floatingActionButton: _floatingActionButton(context),
     );
   }
 
@@ -47,5 +35,20 @@ class Home extends StatelessWidget {
               const PopupMenuItem(child: Text('Gjorda'), value: 2),
               const PopupMenuItem(child: Text('Att göra'), value: 3)
             ]);
+  }
+
+  Widget _floatingActionButton(context) {
+    return FloatingActionButton(
+      onPressed: () async {
+        dynamic item = await Navigator.pushNamed(context, '/add');
+        if (item != null) {
+          Provider.of<TodoListProvider>(context, listen: false).addItem(item);
+        }
+      },
+      child: const Icon(
+        Icons.add,
+        size: 40,
+      ),
+    );
   }
 }

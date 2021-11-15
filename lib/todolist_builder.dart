@@ -10,11 +10,14 @@ class TodoListBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: list.length,
-        itemBuilder: (context, index) {
-          return _item(context, list[index]);
-        });
+    return Container(
+      margin: const EdgeInsets.only(bottom: 80),
+      child: ListView.builder(
+          itemCount: list.length,
+          itemBuilder: (context, index) {
+            return _item(context, list[index]);
+          }),
+    );
   }
 }
 
@@ -26,7 +29,16 @@ Widget _item(context, TodoItem item) {
     child: Card(
         margin: const EdgeInsets.only(top: 3),
         child: CheckboxListTile(
-          title: Text(item.title),
+          title: Text(
+            item.title,
+            style: TextStyle(
+                fontSize: 23,
+                fontStyle: FontStyle.italic,
+                decoration:
+                    item.isCompleted ? TextDecoration.lineThrough : null,
+                decorationThickness: 2.8,
+                decorationColor: Colors.orange[500]),
+          ),
           secondary: IconButton(
               icon: Icon(
                 Icons.delete,

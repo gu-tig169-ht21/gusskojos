@@ -17,24 +17,23 @@ class TodoListProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  //filter list
+  //Function to filter list
   List<TodoItem> filterList(list, value) {
     if (value == 2) {
       return todoList.where((item) => item.isCompleted == true).toList();
     } else if (value == 3) {
       return todoList.where((item) => item.isCompleted == false).toList();
     }
-
     return todoList;
   }
 
-  //Add ItemObjekt to items list
+  //Add ItemObjekt to list
   void addItem(TodoItem item) {
     todoList.add(item);
     notifyListeners();
   }
 
-  //Delete ItemObjekt from items list
+  //Delete ItemObjekt from list
   void deleteItem(TodoItem item) {
     todoList.remove(item);
     notifyListeners();

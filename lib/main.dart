@@ -12,8 +12,8 @@ void main() {
     child: MaterialApp(
       initialRoute: '/',
       routes: {
-        '/': (context) => Home(),
-        '/add': (context) => AddTodo(),
+        '/': (context) => const Home(),
+        '/add': (context) => const AddTodo(),
       },
       theme: ThemeData(primarySwatch: Colors.orange),
     ),
