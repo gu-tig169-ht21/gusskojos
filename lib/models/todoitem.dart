@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class ItemCard {
+class TodoItem {
   String title;
   bool isCompleted;
 
-  ItemCard({required this.title, this.isCompleted = false});
+  TodoItem({required this.title, this.isCompleted = false});
 
   void toggleCompleted(item) {
     isCompleted = !isCompleted;
