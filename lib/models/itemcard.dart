@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Item {
+class ItemCard {
   String title;
   bool isCompleted;
 
-  Item({required this.title, this.isCompleted = false});
+  ItemCard({required this.title, this.isCompleted = false});
 
-  void toggleCompleted() {
+  void toggleCompleted(item) {
     isCompleted = !isCompleted;
   }
 }
