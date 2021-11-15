@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_app/pages/add_todo.dart';
-import 'package:todo_app/models/itemcard.dart';
+import 'package:todo_app/models/todoitem.dart';
 import 'package:todo_app/providers/todolist.dart';
 import 'package:provider/provider.dart';
 

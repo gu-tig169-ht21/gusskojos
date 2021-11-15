@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/models/itemcard.dart';
-import 'package:todo_app/models/itemcard.dart';
+import 'package:todo_app/models/todoitem.dart';
+import 'package:todo_app/models/todoitem.dart';
 
 class AddTodo extends StatefulWidget {
   const AddTodo({Key? key}) : super(key: key);
