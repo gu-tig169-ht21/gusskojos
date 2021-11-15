@@ -1,12 +1,32 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:todo_app/models/todoitem.dart';
 
 class TodoListProvider with ChangeNotifier {
   List<TodoItem> todoList = [];
+  int _filterBy = 3;
 
   //Get todoList
   List<TodoItem> get list => todoList;
+
+  //Get filter Value
+  int get filterBy => _filterBy;
+
+  //Set filterBy
+  void setFilterby(int filterBy) {
+    _filterBy = filterBy;
+    notifyListeners();
+  }
+
+  //filter list
+  List<TodoItem> filterList(list, value) {
+    if (value == 2) {
+      return todoList.where((item) => item.isCompleted == true).toList();
+    } else if (value == 3) {
+      return todoList.where((item) => item.isCompleted == false).toList();
+    }
+
+    return todoList;
+  }
 
   //Add ItemObjekt to items list
   void addItem(TodoItem item) {

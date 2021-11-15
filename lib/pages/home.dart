@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:todo_app/pages/add_todo.dart';
 import 'package:todo_app/models/todoitem.dart';
 import 'package:todo_app/providers/todolist.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/todolist_builder.dart';
 
 class Home extends StatelessWidget {
-  Home({Key? key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,17 +15,7 @@ class Home extends StatelessWidget {
         title: const Text('Todo List'),
         centerTitle: true,
         elevation: 0,
-        actions: [
-          PopupMenuButton(
-              itemBuilder: (context) => [
-                    PopupMenuItem(
-                      child: Text('Visa alla'),
-                      onTap: () {},
-                    ),
-                    PopupMenuItem(child: Text('Gjorda'), onTap: () {}),
-                    PopupMenuItem(child: Text('Att göra'), onTap: () {})
-                  ]),
-        ],
+        actions: [_popUpFilterButton(context)],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -37,57 +26,26 @@ class Home extends StatelessWidget {
         },
         child: const Icon(Icons.add),
       ),
-      body: Consumer<TodoListProvider>(
-          builder: (context, state, child) => CardList(list: state.list)),
+      body: Consumer<TodoListProvider>(builder: (context, state, child) {
+        return Container(
+          margin: const EdgeInsets.only(bottom: 80),
+          child: TodoListBuilder(
+              list: state.filterList(state.todoList, state.filterBy)),
+        );
+      }),
     );
   }
-}
 
-class CardList extends StatelessWidget {
-  CardList({Key? key, required this.list}) : super(key: key);
-  final List<ItemCard> list;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-        children: list.map((item) => _item(context, item)).toList());
+  Widget _popUpFilterButton(context) {
+    var state = Provider.of<TodoListProvider>(context, listen: false);
+    return PopupMenuButton(
+        onSelected: (int value) {
+          state.setFilterby(value);
+        },
+        itemBuilder: (context) => [
+              const PopupMenuItem(child: Text('Visa alla'), value: 1),
+              const PopupMenuItem(child: Text('Gjorda'), value: 2),
+              const PopupMenuItem(child: Text('Att göra'), value: 3)
+            ]);
   }
-}
-
-//Returnerar en Todo-lista med Todo items.
-/* Widget _listBuilder() {
-    //int count = context.read()
-    return ListView.builder(
-        itemCount: context.read<Items>(),
-        itemBuilder: (context, index) {
-          return _item(index);
-        });
-  }*/
-
-//Widget som returnerar ett CardItem till todo-listan
-
-Widget _item(context, ItemCard item) {
-  var state = Provider.of<TodoListProvider>(context, listen: false);
-
-  return Padding(
-    padding: const EdgeInsets.only(top: 2, left: 5, right: 5),
-    child: Card(
-        margin: const EdgeInsets.only(top: 3),
-        child: CheckboxListTile(
-          title: Text(item.title),
-          secondary: IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () {
-                var state =
-                    Provider.of<TodoListProvider>(context, listen: false);
-                state.deleteItem(item);
-              }),
-          controlAffinity: ListTileControlAffinity.leading,
-          value: item.isCompleted,
-          onChanged: (value) {
-            var state = Provider.of<TodoListProvider>(context, listen: false);
-            state.isCompleted(item);
-          },
-        )),
-  );
 }

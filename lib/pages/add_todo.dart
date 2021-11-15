@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/models/todoitem.dart';
-import 'package:todo_app/models/todoitem.dart';
 
 class AddTodo extends StatefulWidget {
   const AddTodo({Key? key}) : super(key: key);
@@ -10,10 +9,9 @@ class AddTodo extends StatefulWidget {
 }
 
 class _AddTodoState extends State<AddTodo> {
-  TextEditingController _textController = TextEditingController();
-
+  final TextEditingController _textController = TextEditingController();
   bool inputIsEmpty = true;
-
+//Set a dynamic Color on border
   Color getBorderColor() {
     if (inputIsEmpty) {
       return Colors.red;
@@ -23,7 +21,7 @@ class _AddTodoState extends State<AddTodo> {
   }
 
   void submit() {
-    ItemCard item = ItemCard(title: _textController.text);
+    TodoItem item = TodoItem(title: _textController.text);
     Navigator.pop(context, item);
   }
 
@@ -32,12 +30,12 @@ class _AddTodoState extends State<AddTodo> {
     return Scaffold(
         backgroundColor: Colors.grey[300],
         appBar: AppBar(
-          title: Text('Lägg till Todo'),
+          title: const Text('Lägg till Todo'),
           centerTitle: true,
           elevation: 0,
         ),
         body: Padding(
-            padding: EdgeInsets.fromLTRB(10, 50, 10, 0),
+            padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -75,7 +73,7 @@ class _AddTodoState extends State<AddTodo> {
                         hintStyle: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18))),
                 ElevatedButton.icon(
-                    icon: Icon(Icons.add),
+                    icon: const Icon(Icons.add),
                     label: Text(
                       'Skapa Todo',
                       style: TextStyle(color: Colors.blueGrey[00]),
