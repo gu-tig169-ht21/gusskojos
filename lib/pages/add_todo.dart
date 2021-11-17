@@ -88,6 +88,7 @@ class _AddTodoState extends State<AddTodo> {
         onPressed: () {
           if (_textController.text.isEmpty) {
             // TODO: ToastMessage
+
           } else {
             submit();
           }
