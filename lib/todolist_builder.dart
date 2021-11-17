@@ -34,8 +34,7 @@ Widget _item(context, TodoItem item) {
             style: TextStyle(
                 fontSize: 23,
                 fontStyle: FontStyle.italic,
-                decoration:
-                    item.isCompleted ? TextDecoration.lineThrough : null,
+                decoration: item.done ? TextDecoration.lineThrough : null,
                 decorationThickness: 2.8,
                 decorationColor: Colors.orange[500]),
           ),
@@ -48,7 +47,7 @@ Widget _item(context, TodoItem item) {
                 state.deleteItem(item);
               }),
           controlAffinity: ListTileControlAffinity.leading,
-          value: item.isCompleted,
+          value: item.done,
           onChanged: (value) {
             state.isCompleted(item);
           },

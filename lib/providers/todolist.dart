@@ -20,9 +20,9 @@ class TodoListProvider with ChangeNotifier {
   //Function to filter list
   List<TodoItem> filterList(list, value) {
     if (value == 2) {
-      return todoList.where((item) => item.isCompleted == true).toList();
+      return todoList.where((item) => item.done == true).toList();
     } else if (value == 3) {
-      return todoList.where((item) => item.isCompleted == false).toList();
+      return todoList.where((item) => item.done == false).toList();
     }
     return todoList;
   }
