@@ -15,7 +15,7 @@ class TodoListBuilder extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 80),
       child: RefreshIndicator(
         onRefresh: () async {
-          list = await state.fetchTodo();
+          state.fetchTodo();
         },
         child: ListView.builder(
             itemCount: list.length,
