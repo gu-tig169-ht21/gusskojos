@@ -10,6 +10,7 @@ void main() {
   runApp(ChangeNotifierProvider(
     create: (context) => state,
     child: MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
         '/': (context) => const Home(),
