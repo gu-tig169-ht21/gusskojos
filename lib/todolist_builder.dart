@@ -10,13 +10,19 @@ class TodoListBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var state = Provider.of<TodoListProvider>(context, listen: false);
     return Container(
       margin: const EdgeInsets.only(bottom: 80),
-      child: ListView.builder(
-          itemCount: list.length,
-          itemBuilder: (context, index) {
-            return _item(context, list[index]);
-          }),
+      child: RefreshIndicator(
+        onRefresh: () async {
+          state.fetchTodo();
+        },
+        child: ListView.builder(
+            itemCount: list.length,
+            itemBuilder: (context, index) {
+              return _item(context, list[index]);
+            }),
+      ),
     );
   }
 }

@@ -4,7 +4,7 @@ import 'package:todo_app/services/todo_service.dart';
 
 class TodoListProvider with ChangeNotifier {
   TodoListProvider() {
-    fetchTodoOnStartup();
+    fetchTodo();
   }
 
   List<TodoItem> todoList = [];
@@ -16,7 +16,7 @@ class TodoListProvider with ChangeNotifier {
   //Get filter Value
   int get filterBy => _filterBy;
 
-  void fetchTodoOnStartup() async {
+  void fetchTodo() async {
     todoList.clear();
     todoList = await TodoService.fetchTodos();
     notifyListeners();
