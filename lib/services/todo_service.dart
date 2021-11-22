@@ -15,7 +15,7 @@ class TodoService {
     for (var obj in data) {
       bool done;
 
-      if (obj['done'] == "true") {
+      if (obj['done'] == true) {
         done = true;
       } else {
         done = false;

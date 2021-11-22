@@ -16,10 +16,13 @@ class TodoListProvider with ChangeNotifier {
   //Get filter Value
   int get filterBy => _filterBy;
 
-  void fetchTodo() async {
+  Future<List<TodoItem>> fetchTodo() async {
     todoList.clear();
-    todoList = await TodoService.fetchTodos();
+    var result = await TodoService.fetchTodos();
+    todoList = result;
+    print(result[0].done);
     notifyListeners();
+    return todoList;
   }
 
   //Set filterBy
