@@ -1,10 +1,18 @@
 class TodoItem {
-  String title;
-  bool isCompleted;
+  final String id;
+  final String title;
+  bool done;
 
-  TodoItem({required this.title, this.isCompleted = false});
+  TodoItem({this.id = "", required this.title, required this.done});
 
-  void toggleCompleted(item) {
-    isCompleted = !isCompleted;
+  factory TodoItem.fromJson(Map<String, dynamic> json) => TodoItem(
+        id: json['id'],
+        title: json['title'],
+        done: json['done'],
+      );
+
+  @override
+  String toString() {
+    return "{id: $id title: $title}";
   }
 }

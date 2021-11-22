@@ -21,7 +21,7 @@ class _AddTodoState extends State<AddTodo> {
   }
 
   void submit() {
-    TodoItem item = TodoItem(title: _textController.text);
+    TodoItem item = TodoItem(title: _textController.text, done: false);
     Navigator.pop(context, item);
   }
 
@@ -38,10 +38,7 @@ class _AddTodoState extends State<AddTodo> {
             padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                _addTodoInput(),
-                _addButton(),
-              ],
+              children: [_addTodoInput(), _addButton()],
             )));
   }
 

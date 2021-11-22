@@ -4,19 +4,25 @@ import 'package:todo_app/models/todoitem.dart';
 import 'package:todo_app/providers/todolist.dart';
 
 class TodoListBuilder extends StatelessWidget {
-  const TodoListBuilder({Key? key, required this.list}) : super(key: key);
+  TodoListBuilder({Key? key, required this.list}) : super(key: key);
 
-  final List<TodoItem> list;
+  List<TodoItem> list;
 
   @override
   Widget build(BuildContext context) {
+    var state = Provider.of<TodoListProvider>(context, listen: false);
     return Container(
       margin: const EdgeInsets.only(bottom: 80),
-      child: ListView.builder(
-          itemCount: list.length,
-          itemBuilder: (context, index) {
-            return _item(context, list[index]);
-          }),
+      child: RefreshIndicator(
+        onRefresh: () async {
+          state.fetchTodo();
+        },
+        child: ListView.builder(
+            itemCount: list.length,
+            itemBuilder: (context, index) {
+              return _item(context, list[index]);
+            }),
+      ),
     );
   }
 }
@@ -34,8 +40,7 @@ Widget _item(context, TodoItem item) {
             style: TextStyle(
                 fontSize: 23,
                 fontStyle: FontStyle.italic,
-                decoration:
-                    item.isCompleted ? TextDecoration.lineThrough : null,
+                decoration: item.done ? TextDecoration.lineThrough : null,
                 decorationThickness: 2.8,
                 decorationColor: Colors.orange[500]),
           ),
@@ -48,7 +53,7 @@ Widget _item(context, TodoItem item) {
                 state.deleteItem(item);
               }),
           controlAffinity: ListTileControlAffinity.leading,
-          value: item.isCompleted,
+          value: item.done,
           onChanged: (value) {
             state.isCompleted(item);
           },
