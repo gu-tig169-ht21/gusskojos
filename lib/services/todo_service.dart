@@ -52,7 +52,7 @@ class TodoService {
     print('Item deletet');
   }
 
-  static Future<void> updateTodo(TodoItem item) async {
+  static Future<List<TodoItem>> updateTodo(TodoItem item) async {
     Response response = await put(
       Uri.parse(
           'https://todoapp-api-pyq5q.ondigitalocean.app/todos/${item.id}?key=291dd6d6-a184-4613-b365-4d5ce24bd913'),
@@ -60,6 +60,9 @@ class TodoService {
       body: json.encode({'title': item.title, 'done': item.done}),
     );
 
-    print('Todo was updated');
+    List<dynamic> parsedList = jsonDecode(response.body);
+    List<TodoItem> itemsList =
+        List<TodoItem>.from(parsedList.map((i) => TodoItem.fromJson(i)));
+    return itemsList;
   }
 }

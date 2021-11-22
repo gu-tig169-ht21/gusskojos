@@ -7,12 +7,6 @@ class TodoListProvider with ChangeNotifier {
     fetchTodoOnStartup();
   }
 
-  //Denna fungerar
-  void fetchTodoOnStartup() async {
-    todoList = await TodoService.fetchTodos();
-    notifyListeners();
-  }
-
   List<TodoItem> todoList = [];
   int _filterBy = 3;
 
@@ -21,6 +15,12 @@ class TodoListProvider with ChangeNotifier {
 
   //Get filter Value
   int get filterBy => _filterBy;
+
+  void fetchTodoOnStartup() async {
+    todoList.clear();
+    todoList = await TodoService.fetchTodos();
+    notifyListeners();
+  }
 
   //Set filterBy
   void setFilterby(int filterBy) {
@@ -38,10 +38,20 @@ class TodoListProvider with ChangeNotifier {
     return todoList;
   }
 
+  //Get todoList
+  void getTodo(list) {
+    for (var item in list) {
+      todoList.add(item);
+    }
+    notifyListeners();
+  }
+
   //Add ItemObjekt to list
   void addItem(TodoItem item) async {
-    TodoService.postTodo(item);
-    todoList.add(item);
+    var result = await TodoService.postTodo(item);
+    //todoList.add(item);
+    todoList.clear();
+    todoList = result;
     notifyListeners();
   }
 
@@ -53,10 +63,10 @@ class TodoListProvider with ChangeNotifier {
   }
 
   //Change ItemObjekt to opposite value of current value
-  void isCompleted(TodoItem item) {
+  void isCompleted(TodoItem item) async {
     item.done = !item.done;
-    TodoService.updateTodo(item);
-    //item.toggleCompleted(item);
+    var result = await TodoService.updateTodo(item);
+    //getTodo(result);
     notifyListeners();
   }
 }
