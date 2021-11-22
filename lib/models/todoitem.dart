@@ -11,10 +11,6 @@ class TodoItem {
         done: json['done'],
       );
 
-  void toggleCompleted(item) {
-    done = !done;
-  }
-
   @override
   String toString() {
     return "{id: $id title: $title}";
