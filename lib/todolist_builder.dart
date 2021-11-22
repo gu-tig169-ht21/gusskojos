@@ -4,9 +4,9 @@ import 'package:todo_app/models/todoitem.dart';
 import 'package:todo_app/providers/todolist.dart';
 
 class TodoListBuilder extends StatelessWidget {
-  const TodoListBuilder({Key? key, required this.list}) : super(key: key);
+  TodoListBuilder({Key? key, required this.list}) : super(key: key);
 
-  final List<TodoItem> list;
+  List<TodoItem> list;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class TodoListBuilder extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 80),
       child: RefreshIndicator(
         onRefresh: () async {
-          state.fetchTodo();
+          list = await state.fetchTodo();
         },
         child: ListView.builder(
             itemCount: list.length,
