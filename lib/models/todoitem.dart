@@ -5,11 +5,17 @@ class TodoItem {
 
   TodoItem({this.id = "", required this.title, required this.done});
 
-  factory TodoItem.fromJson(Map<String, dynamic> json) => TodoItem(
+  factory TodoItem.fromJson(Map<dynamic, dynamic> json) => TodoItem(
         id: json['id'],
         title: json['title'],
         done: json['done'],
       );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "title": title,
+    "done": done
+  };
 
   @override
   String toString() {

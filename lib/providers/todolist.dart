@@ -17,7 +17,6 @@ class TodoListProvider with ChangeNotifier {
   int get filterBy => _filterBy;
 
   void fetchTodo() async {
-    todoList.clear();
     todoList = await TodoService.fetchTodos();
     notifyListeners();
   }
@@ -38,14 +37,6 @@ class TodoListProvider with ChangeNotifier {
     return todoList;
   }
 
-  //Get todoList
-  void getTodo(list) {
-    for (var item in list) {
-      todoList.add(item);
-    }
-    notifyListeners();
-  }
-
   //Add ItemObjekt to list
   void addItem(TodoItem item) async {
     var result = await TodoService.postTodo(item);
@@ -56,17 +47,15 @@ class TodoListProvider with ChangeNotifier {
   }
 
   //Delete ItemObjekt from list
-  void deleteItem(TodoItem item) {
-    TodoService.deleteTodoItem(item);
-    todoList.remove(item);
+  void deleteItem(TodoItem item) async{
+    todoList = await TodoService.deleteTodoItem(item);
     notifyListeners();
   }
 
   //Change ItemObjekt to opposite value of current value
   void isCompleted(TodoItem item) async {
     item.done = !item.done;
-    var result = await TodoService.updateTodo(item);
-    //getTodo(result);
+    todoList = await TodoService.updateTodo(item);
     notifyListeners();
   }
 }
