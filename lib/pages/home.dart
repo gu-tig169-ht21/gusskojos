@@ -17,11 +17,20 @@ class Home extends StatelessWidget {
         elevation: 0,
         actions: [_popUpFilterButton(context)],
       ),
-      body: Consumer<TodoListProvider>(builder: (context, state, child) {
-        return state.errorState
-            ? _errrorState()
-            : TodoListBuilder(
-                list: state.filterList(state.todoList, state.filterBy));
+      body: Consumer<TodoListProvider>(builder: (context, notifier, child) {
+        if (notifier.state == NotifierState.initial) {
+          print('Initial Ran');
+          return TodoListBuilder(
+              list: notifier.filterList(notifier.list, notifier.filterBy));
+        } else if (notifier.state == NotifierState.loading) {
+          return const CircularProgressIndicator();
+        } else {
+          if (notifier.failure != null) {
+            return Text(notifier.failure.toString());
+          }
+        }
+
+        return Text('Hej');
       }),
       floatingActionButton: _floatingActionButton(context),
     );
