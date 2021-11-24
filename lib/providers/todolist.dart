@@ -6,7 +6,7 @@ enum NotifierState { initial, loading, loaded }
 
 class TodoListProvider with ChangeNotifier {
   TodoListProvider() {
-    initialFetch();
+    fetchTodo();
   }
 
   void initialFetch() async {
@@ -31,10 +31,10 @@ class TodoListProvider with ChangeNotifier {
   }
 
   //Setter for error handler
-  late Failure _failure;
-  Failure get failure => _failure;
-  void _setFailure(Failure failure) {
-    _failure = failure;
+  Failure? _failure;
+  Failure? get failure => _failure;
+  void _setFailure(Failure f) {
+    _failure = f;
     notifyListeners();
   }
 
@@ -46,7 +46,7 @@ class TodoListProvider with ChangeNotifier {
   void fetchTodo() async {
     _setState(NotifierState.loading);
     try {
-      final result = await _todoService.fetchTodos();
+      var result = await _todoService.fetchTodos();
       _setList(result);
     } on Failure catch (f) {
       _setFailure(f);

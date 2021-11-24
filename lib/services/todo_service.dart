@@ -13,11 +13,11 @@ class TodoService {
           'https://todoapp-api-pyq5q.ondigitalocean.app/todos?key=291dd6d6-a184-4613-b365-4d5ce24bd913'));
       return parseJson(response);
     } on SocketException {
-      throw Failure('No Internet connection 😑');
+      throw Failure(message: 'No Internet connection 😑');
     } on HttpException {
-      throw Failure("Couldn't find the post 😱");
+      throw Failure(message: "Couldn't find todos 😱");
     } on FormatException {
-      throw Failure("Bad response format 👎");
+      throw Failure(message: "Bad response format 👎");
     }
   }
 
@@ -57,7 +57,7 @@ class TodoService {
 class Failure {
   final String message;
 
-  Failure(this.message);
+  Failure({this.message = ""});
 
   @override
   String toString() => message;
