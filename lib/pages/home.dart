@@ -25,7 +25,9 @@ class Home extends StatelessWidget {
           return const CircularProgressIndicator();
         } else {
           if (notifier.failure != null) {
-            return Text(notifier.failure.toString());
+            return TextButton(
+                onPressed: () => state.fetchTodo(),
+                child: Text(notifier.failure.toString()));
           }
           return TodoListBuilder(
               list: notifier.filterList(notifier.list, notifier.filterBy));

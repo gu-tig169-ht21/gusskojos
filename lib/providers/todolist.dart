@@ -47,6 +47,7 @@ class TodoListProvider with ChangeNotifier {
     _setState(NotifierState.loading);
     try {
       var result = await _todoService.fetchTodos();
+      _failure = null;
       _setList(result);
     } on Failure catch (f) {
       _setFailure(f);
