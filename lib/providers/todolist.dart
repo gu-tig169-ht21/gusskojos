@@ -9,6 +9,7 @@ class TodoListProvider with ChangeNotifier {
 
   List<TodoItem> todoList = [];
   int _filterBy = 3;
+  bool errorState = false;
 
   //Get todoList
   List<TodoItem> get list => todoList;
@@ -17,8 +18,14 @@ class TodoListProvider with ChangeNotifier {
   int get filterBy => _filterBy;
 
   void fetchTodo() async {
-    todoList = await TodoService.fetchTodos();
-    notifyListeners();
+    var result = await TodoService.fetchTodos();
+    if (result != null) {
+      errorState = false;
+      todoList = result;
+      notifyListeners();
+    } else {
+      errorState = true;
+    }
   }
 
   //Set filterBy
@@ -47,7 +54,7 @@ class TodoListProvider with ChangeNotifier {
   }
 
   //Delete ItemObjekt from list
-  void deleteItem(TodoItem item) async{
+  void deleteItem(TodoItem item) async {
     todoList = await TodoService.deleteTodoItem(item);
     notifyListeners();
   }

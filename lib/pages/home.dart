@@ -8,6 +8,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var state = Provider.of<TodoListProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
@@ -17,10 +18,23 @@ class Home extends StatelessWidget {
         actions: [_popUpFilterButton(context)],
       ),
       body: Consumer<TodoListProvider>(builder: (context, state, child) {
-        return TodoListBuilder(
-            list: state.filterList(state.todoList, state.filterBy));
+        return state.errorState
+            ? _errrorState()
+            : TodoListBuilder(
+                list: state.filterList(state.todoList, state.filterBy));
       }),
       floatingActionButton: _floatingActionButton(context),
+    );
+  }
+
+  Widget _errrorState() {
+    return Container(
+      margin: EdgeInsets.all(20),
+      child: const Text(
+        'Kunde inte hämta Todos, testa att uppdatera sidan eller kolla din internetanslutning',
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        textAlign: TextAlign.center,
+      ),
     );
   }
 
