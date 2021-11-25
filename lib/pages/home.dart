@@ -18,11 +18,15 @@ class Home extends StatelessWidget {
         actions: [_popUpFilterButton(context)],
       ),
       body: Consumer<TodoListProvider>(builder: (context, notifier, child) {
-        if (notifier.state == NotifierState.initial) {
+        if (notifier.providerState == NotifierState.initial) {
           return TodoListBuilder(
               list: notifier.filterList(notifier.list, notifier.filterBy));
-        } else if (notifier.state == NotifierState.loading) {
-          return const CircularProgressIndicator();
+        } else if (notifier.providerState == NotifierState.loading) {
+          return Container(
+            alignment: Alignment.topCenter,
+            margin: const EdgeInsets.symmetric(vertical: 50),
+            child: const CircularProgressIndicator(),
+          );
         } else {
           if (notifier.failure != null) {
             return TextButton(
@@ -34,17 +38,6 @@ class Home extends StatelessWidget {
         }
       }),
       floatingActionButton: _floatingActionButton(context),
-    );
-  }
-
-  Widget _errrorState() {
-    return Container(
-      margin: EdgeInsets.all(20),
-      child: const Text(
-        'Kunde inte hämta Todos, testa att uppdatera sidan eller kolla din internetanslutning',
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        textAlign: TextAlign.center,
-      ),
     );
   }
 

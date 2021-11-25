@@ -55,6 +55,7 @@ Widget _item(context, TodoItem item) {
           controlAffinity: ListTileControlAffinity.leading,
           value: item.done,
           onChanged: (value) {
+            item.done = !item.done; //Change value of checkbox to opposite value
             state.isCompleted(item);
           },
         )),

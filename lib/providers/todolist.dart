@@ -9,14 +9,11 @@ class TodoListProvider with ChangeNotifier {
     fetchTodo();
   }
 
-  void initialFetch() async {
-    _setList(await _todoService.fetchTodos());
-  }
-
+  //Instance of TodoService class
   final _todoService = TodoService();
 
   NotifierState _state = NotifierState.initial;
-  NotifierState get state => _state;
+  NotifierState get providerState => _state;
   void _setState(NotifierState state) {
     _state = state;
     notifyListeners();
@@ -74,22 +71,16 @@ class TodoListProvider with ChangeNotifier {
   //Add ItemObjekt to list
   void addItem(TodoItem item) async {
     var result = await _todoService.postTodo(item);
-    //todoList.add(item);
-    _todoList.clear();
-    _todoList = result;
-    notifyListeners();
+    _setList(result);
   }
 
   //Delete ItemObjekt from list
   void deleteItem(TodoItem item) async {
-    _todoList = await _todoService.deleteTodoItem(item);
-    notifyListeners();
+    _setList(await _todoService.deleteTodoItem(item));
   }
 
   //Change ItemObjekt to opposite value of current value
   void isCompleted(TodoItem item) async {
-    item.done = !item.done;
-    _todoList = await _todoService.updateTodo(item);
-    notifyListeners();
+    _setList(await _todoService.updateTodo(item));
   }
 }
