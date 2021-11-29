@@ -8,6 +8,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var state = Provider.of<TodoListProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
@@ -16,9 +17,25 @@ class Home extends StatelessWidget {
         elevation: 0,
         actions: [_popUpFilterButton(context)],
       ),
-      body: Consumer<TodoListProvider>(builder: (context, state, child) {
-        return TodoListBuilder(
-            list: state.filterList(state.todoList, state.filterBy));
+      body: Consumer<TodoListProvider>(builder: (context, notifier, child) {
+        if (notifier.providerState == NotifierState.initial) {
+          return TodoListBuilder(
+              list: notifier.filterList(notifier.list, notifier.filterBy));
+        } else if (notifier.providerState == NotifierState.loading) {
+          return Container(
+            alignment: Alignment.topCenter,
+            margin: const EdgeInsets.symmetric(vertical: 50),
+            child: const CircularProgressIndicator(),
+          );
+        } else {
+          if (notifier.failure != null) {
+            return TextButton(
+                onPressed: () => state.fetchTodo(),
+                child: Text(notifier.failure.toString()));
+          }
+          return TodoListBuilder(
+              list: notifier.filterList(notifier.list, notifier.filterBy));
+        }
       }),
       floatingActionButton: _floatingActionButton(context),
     );

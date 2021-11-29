@@ -10,6 +10,7 @@ void main() {
   runApp(ChangeNotifierProvider(
     create: (context) => state,
     child: MaterialApp(
+      title: 'Todo App',
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
